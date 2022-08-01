@@ -156,9 +156,9 @@ void cublas_mm(const T* A, const T* B, T* C, const int M, const int K, const int
 
 
 int main(){
-    const int m = 1024;
-    const int k = 1024;
-    const int n = 1024;
+    const int m = 4096;
+    const int k = 4096;
+    const int n = 4096;
     std::vector<float> A(m * k), B(k * n), C(m*n);
     std::vector<float> A_value;
     std::vector<int> A_cols, A_crows;
@@ -171,7 +171,7 @@ int main(){
         A_crows.push_back(nnz);
         for(int j = 0; j < k; j++){
             float rate = dis(random);
-            if(rate < nnz_rate){
+            if(rate <= nnz_rate){
                 A[i * k + j] = dis(random);
                 A_value.push_back(A[i * k + j]);
                 A_cols.push_back(j); 
@@ -208,7 +208,7 @@ int main(){
     //spmm_csr<float>(d_A_non_zero_values, d_A_crows, d_A_cols, m, k, nnz, 
     //        d_B, n, d_C);
 
-    std::cout << "\nnnz_rate=" << nnz_rate << " nnz=" << nnz << std::endl;
+    std::cout << "\nnnz_rate=" << 1-nnz_rate << " nnz=" << nnz << " real nnz rate = "<< 1 - (nnz*1.0/(M*K)) << std::endl;
     std::cout << "call cusparse spmm" << std::endl;
     spmm_csr<float>(d_A_non_zero_values, d_A_crows, d_A_cols, m, k, nnz, 
             d_B, n, d_C);
