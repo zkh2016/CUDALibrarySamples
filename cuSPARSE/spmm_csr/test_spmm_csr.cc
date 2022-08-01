@@ -208,7 +208,7 @@ int main(){
     //spmm_csr<float>(d_A_non_zero_values, d_A_crows, d_A_cols, m, k, nnz, 
     //        d_B, n, d_C);
 
-    std::cout << "\nnnz_rate=" << 1-nnz_rate << " nnz=" << nnz << " real nnz rate = "<< 1 - (nnz*1.0/(M*K)) << std::endl;
+    std::cout << "\nnnz_rate=" << 1-nnz_rate << " nnz=" << nnz << " real nnz rate = "<< 1 - (nnz*1.0/(m*k)) << std::endl;
     std::cout << "call cusparse spmm" << std::endl;
     spmm_csr<float>(d_A_non_zero_values, d_A_crows, d_A_cols, m, k, nnz, 
             d_B, n, d_C);
